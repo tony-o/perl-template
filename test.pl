@@ -25,7 +25,12 @@ print '"' . $parser->run("test2", {
   ,peter2 => 'tinkerbell'
 }) . '"';
 
-$parser->register('p', sub{
+my $parser2 = Template::Tones->new({
+  open => '{'
+  ,close => '}'  
+});
+
+$parser2->register('p', sub{
   my $output = shift;
   my $params = shift;
   my $stuff  = shift;
@@ -33,9 +38,10 @@ $parser->register('p', sub{
   return 1;
 });
 
-$parser->compile("test2", $template);
+$template =~ s/!!(.*?)!!/{$1}/g;
+$parser2->compile("test2", $template);
 
-print '"' . $parser->run("test2", { 
+print '"' . $parser2->run("test2", { 
    peter  => 'pan' 
   ,peter2 => 'tinkerbell'
 }) . '"';
