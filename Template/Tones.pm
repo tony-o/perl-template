@@ -3,9 +3,6 @@ package Template::Tones;
 use strict;
 use warnings;
 
-use Digest::MD5 qw(md5_hex);
-use Data::Dumper;
-
 sub new{
   my $class = shift;
   my $defaults = {
@@ -175,7 +172,6 @@ sub generate{
   my $nodes = shift;
   my $code  = shift || "sub{\n\tmy \$params = shift;\n\tmy \$output = '';\n";
   my $recr  = shift || 0;
-  my $hash  = md5_hex(join('',localtime(time)));
   my ($node,$buffer);
   while(@{$nodes}){
     $node = splice @{$nodes}, 0, 1;
